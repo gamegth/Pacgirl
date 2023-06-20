@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Girl Pac-Man</title>
+    <style>
+        canvas {
+            background-color: black;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="480" height="480"></canvas>
+
+    <script>
+        // Configuração do jogo
+        var canvas = document.getElementById("gameCanvas");
+        var context = canvas.getContext("2d");
+
+        // Personagem principal
+        var girl = {
+            x: 220,
+            y: 220,
+            speed: 2
+        };
+
+        // Sons
+        var monaSound = new Audio('mona_sound.wav');
+
+        // Função para desenhar a personagem
+        function drawGirl() {
+            context.beginPath();
+            context.arc(girl.x, girl.y, 20, 0, Math.PI * 2);
+            context.fillStyle = "pink";
+            context.fill();
+            context.closePath();
+        }
+
+        // Função de atualização do jogo
+        function updateGame() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            drawGirl();
+        }
+
+        // Função para reproduzir o som de Mona
+        function playMonaSound() {
+            monaSound.play();
+        }
+
+        // Função de controle da personagem
+        function moveGirl(event) {
+            switch(event.keyCode) {
+                case 37: // Tecla da seta esquerda
+                    girl.x -= girl.speed;
+                    break;
+                case 38: // Tecla da seta cima
+                    girl.y -= girl.speed;
+                    break;
+                case 39: // Tecla da seta direita
+                    girl.x += girl.speed;
+                    break;
+                case 40: // Tecla da seta baixo
+                    girl.y += girl.speed;
+                    break;
+            }
+        }
+
+        // Event listener para as teclas pressionadas
+        document.addEventListener("keydown", moveGirl);
+
+        // Loop do jogo
+        setInterval(updateGame, 10);
+    </script>
+</body>
+</html>
